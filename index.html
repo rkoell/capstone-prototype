@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hope Healthcare Resource Hub & Navigation Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        hope: { 50: '#f0fdf4', 100: '#dcfce7', 600: '#16a34a', 700: '#15803d', 800: '#166534' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased" id="mainBody">
+
+    <!-- Header & Navigation -->
+    <header class="bg-hope-800 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white text-hope-800 p-2 rounded-lg font-bold text-xl shadow">
+                    <i class="fa-solid fa-hands-holding-child"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight">Hope Healthcare Resource Hub</h1>
+                    <p class="text-xs text-hope-100 opacity-90">Hope Resource Center • Capstone Navigation Platform</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3 flex-wrap">
+                <button onclick="toggleFontSize()" class="bg-hope-700 hover:bg-hope-600 px-3 py-1.5 rounded text-sm font-medium transition flex items-center space-x-1.5 border border-hope-600">
+                    <i class="fa-solid fa-text-height"></i>
+                    <span id="fontSizeLabel">Large Text</span>
+                </button>
+                <button onclick="toggleContrast()" class="bg-hope-700 hover:bg-hope-600 px-3 py-1.5 rounded text-sm font-medium transition flex items-center space-x-1.5 border border-hope-600">
+                    <i class="fa-solid fa-circle-half-stroke"></i>
+                    <span>High Contrast</span>
+                </button>
+                <a href="#intake-section" class="bg-hope-600 hover:bg-hope-500 text-white px-3 py-1.5 rounded text-sm font-bold transition">
+                    <i class="fa-solid fa-file-pen mr-1"></i> Assistance Form
+                </a>
+                <button onclick="openAdminLogin()" class="bg-white text-hope-800 hover:bg-hope-50 px-3 py-1.5 rounded text-sm font-bold shadow transition">
+                    <i class="fa-solid fa-lock mr-1" id="adminLockIcon"></i> <span id="adminBtnText">Admin Portal</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-12">
+        
+        <!-- SECTION 1: INTAKE FORM (FR-01 & FR-02) -->
+        <section id="intake-section" class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden p-6 md:p-8">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-8">
+                    <span class="bg-hope-100 text-hope-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">FR-01 & FR-02: Guided Intake Process</span>
+                    <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mt-2">Client Assistance & Navigation Request</h2>
+                    <p class="text-slate-600 mt-1">Fill out the simple steps below to request support and get matched with healthcare and community resources.</p>
+                </div>
+
+                <form id="combinedIntakeForm" onsubmit="submitIntakeForm(event)" class="space-y-6">
+                    <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 space-y-4">
+                        <h3 class="font-bold text-lg text-slate-800 flex items-center space-x-2">
+                            <span class="bg-hope-800 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">1</span>
+                            <span>Your Contact Information</span>
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Full Name *</label>
+                                <input type="text" id="clientName" required class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-hope-600 focus:outline-none" placeholder="e.g., Maria Santos">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Phone Number or Best Contact *</label>
+                                <input type="text" id="clientPhone" required class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-hope-600 focus:outline-none" placeholder="e.g., (555) 019-2834">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 space-y-4">
+                        <h3 class="font-bold text-lg text-slate-800 flex items-center space-x-2">
+                            <span class="bg-hope-800 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">2</span>
+                            <span>What type of help do you need today?</span>
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:border-hope-600 cursor-pointer transition">
+                                <input type="checkbox" name="needCategory" value="Primary Care & Clinics" class="w-5 h-5 text-hope-600 rounded">
+                                <span class="text-sm font-medium text-slate-700">Primary Healthcare & Clinics</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:border-hope-600 cursor-pointer transition">
+                                <input type="checkbox" name="needCategory" value="Prescription & Meds" class="w-5 h-5 text-hope-600 rounded">
+                                <span class="text-sm font-medium text-slate-700">Prescription Assistance</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:border-hope-600 cursor-pointer transition">
+                                <input type="checkbox" name="needCategory" value="Mental Health Support" class="w-5 h-5 text-hope-600 rounded">
+                                <span class="text-sm font-medium text-slate-700">Mental Health & Counseling</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 bg-white rounded-lg border border-slate-200 hover:border-hope-600 cursor-pointer transition">
+                                <input type="checkbox" name="needCategory" value="Emergency Food & Utilities" class="w-5 h-5 text-hope-600 rounded">
+                                <span class="text-sm font-medium text-slate-700">Emergency Food & Utility Aid</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 space-y-4">
+                        <h3 class="font-bold text-lg text-slate-800 flex items-center space-x-2">
+                            <span class="bg-hope-800 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">3</span>
+                            <span>Tell us more in your own words</span>
+                        </h3>
+                        <div>
+                            <textarea id="clientDetails" rows="3" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-hope-600 focus:outline-none" placeholder="Briefly describe what support you are looking for..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="text-center pt-2">
+                        <button type="submit" class="bg-hope-600 hover:bg-hope-700 text-white font-bold px-8 py-3.5 rounded-xl shadow-lg transition duration-200 w-full md:w-auto text-lg flex items-center justify-center space-x-2 mx-auto">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>Submit Request & Get Matched</span>
+                        </button>
+                    </div>
+                </form>
+
+                <div id="intakeSuccessAlert" class="hidden mt-6 p-4 bg-hope-50 border border-hope-600 text-hope-800 rounded-xl flex items-center space-x-3">
+                    <i class="fa-solid fa-circle-check text-2xl text-hope-600"></i>
+                    <div>
+                        <p class="font-bold">Request Submitted Successfully!</p>
+                        <p class="text-sm">Your intake request has been routed to Hope staff.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: DYNAMICALLY SAVED RESOURCE DIRECTORY (FR-03 & FR-05) -->
+        <section id="directory-section" class="space-y-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <div>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">FR-03 & FR-05: Resource Directory</span>
+                    <h2 class="text-2xl font-bold text-slate-900 mt-1">Healthcare & Community Resources</h2>
+                    <p class="text-slate-600 text-sm">Search and filter verified external organizations and support services.</p>
+                </div>
+                <div class="flex flex-wrap gap-3 w-full md:w-auto">
+                    <div class="relative flex-1 md:w-64">
+                        <i class="fa-solid fa-search absolute left-3.5 top-3 text-slate-400"></i>
+                        <input type="text" id="resourceSearch" oninput="filterResources()" placeholder="Search services..." class="w-full pl-10 pr-4 py-2 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-hope-600 focus:outline-none">
+                    </div>
+                    <select id="categoryFilter" onchange="filterResources()" class="px-4 py-2 rounded-lg border border-slate-300 text-sm bg-white focus:ring-2 focus:ring-hope-600 focus:outline-none">
+                        <option value="All">All Categories</option>
+                        <option value="Primary Care & Clinics">Primary Care & Clinics</option>
+                        <option value="Prescription & Meds">Prescription & Meds</option>
+                        <option value="Mental Health Support">Mental Health Support</option>
+                        <option value="Emergency Food & Utilities">Emergency Food & Utilities</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Dynamic Resource Grid -->
+            <div id="resourceGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+    </main>
+
+    <!-- ADMIN LOGIN MODAL -->
+    <div id="adminLoginModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 text-slate-800 space-y-4">
+            <div class="flex justify-between items-center">
+                <h3 class="font-bold text-xl text-slate-900"><i class="fa-solid fa-lock text-hope-600 mr-2"></i> Admin Portal Login</h3>
+                <button onclick="closeAdminLogin()" class="text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p class="text-sm text-slate-600">Enter administrator credentials to access management tools.</p>
+            
+            <form onsubmit="handleLoginSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Username</label>
+                    <input type="text" id="adminUser" required class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-hope-600 focus:outline-none" placeholder="admin">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Password</label>
+                    <input type="password" id="adminPass" required class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-hope-600 focus:outline-none" placeholder="hope2026">
+                </div>
+                <div id="loginErrorMsg" class="hidden text-sm text-red-600 font-medium">Invalid username or password. (Hint: admin / hope2026)</div>
+                <div class="flex justify-end space-x-3 pt-2">
+                    <button type="button" onclick="closeAdminLogin()" class="px-4 py-2 rounded-lg text-sm text-slate-600 hover:bg-slate-100 font-medium">Cancel</button>
+                    <button type="submit" class="bg-hope-600 hover:bg-hope-700 text-white font-bold px-5 py-2 rounded-lg text-sm shadow">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        const defaultResources = [
+            { name: "Hope Community Health Clinic", category: "Primary Care & Clinics", desc: "Provides free and low-cost primary medical care, checkups, and basic lab work.", link: "https://hopestclinic.org" },
+            { name: "RxCare Prescription Assistance", category: "Prescription & Meds", desc: "Helps low-income families acquire discounted or free maintenance medications.", link: "https://rxcarehelp.org" },
+            { name: "Serenity Mental Health Network", category: "Mental Health Support", desc: "Offering confidential counseling, peer support groups, and crisis navigation.", link: "https://serenitynet.org" }
+        ];
+
+        window.onload = function() {
+            loadSavedResources();
+        };
+
+        function loadSavedResources() {
+            let resources = JSON.parse(localStorage.getItem('savedResources')) || defaultResources;
+            renderResources(resources);
+        }
+
+        function renderResources(data) {
+            const grid = document.getElementById('resourceGrid');
+            grid.innerHTML = '';
+            
+            data.forEach(res => {
+                grid.innerHTML += `
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col justify-between hover:shadow-md transition">
+                        <div>
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-hope-50 text-hope-800">${res.category}</span>
+                            <h3 class="font-bold text-lg text-slate-900 mt-3">${res.name}</h3>
+                            <p class="text-slate-600 text-sm mt-2 leading-relaxed">${res.desc}</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between gap-2">
+                            <span class="text-xs font-medium text-slate-500 truncate max-w-[140px]"><i class="fa-solid fa-link mr-1 text-hope-600"></i> ${res.link}</span>
+                            <a href="${res.link}" target="_blank" class="bg-hope-600 hover:bg-hope-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition shrink-0">Visit Link</a>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterResources() {
+            const query = document.getElementById('resourceSearch').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+            let resources = JSON.parse(localStorage.getItem('savedResources')) || defaultResources;
+
+            const filtered = resources.filter(res => {
+                const matchesQuery = res.name.toLowerCase().includes(query) || res.desc.toLowerCase().includes(query);
+                const matchesCat = category === 'All' || res.category === category;
+                return matchesQuery && matchesCat;
+            });
+            renderResources(filtered);
+        }
+
+        function submitIntakeForm(e) {
+            e.preventDefault();
+            const name = document.getElementById('clientName').value;
+            const phone = document.getElementById('clientPhone').value;
+
+            let submissions = JSON.parse(localStorage.getItem('hopeIntakes')) || [];
+            submissions.unshift({ name: name, phone: phone, status: "Pending Review", date: new Date().toLocaleDateString() });
+            localStorage.setItem('hopeIntakes', JSON.stringify(submissions));
+
+            document.getElementById('combinedIntakeForm').reset();
+            const alertBox = document.getElementById('intakeSuccessAlert');
+            alertBox.classList.remove('hidden');
+            setTimeout(() => alertBox.classList.add('hidden'), 5000);
+        }
+
+        function openAdminLogin() {
+            if (sessionStorage.getItem('hopeAdminAuth') === 'true') {
+                window.location.href = 'admin.html';
+            } else {
+                document.getElementById('adminLoginModal').classList.remove('hidden');
+            }
+        }
+
+        function closeAdminLogin() {
+            document.getElementById('adminLoginModal').classList.add('hidden');
+        }
+
+        function handleLoginSubmit(e) {
+            e.preventDefault();
+            const user = document.getElementById('adminUser').value;
+            const pass = document.getElementById('adminPass').value;
+
+            if (user === 'admin' && pass === 'hope2026') {
+                sessionStorage.setItem('hopeAdminAuth', 'true');
+                closeAdminLogin();
+                window.location.href = 'admin.html';
+            } else {
+                document.getElementById('loginErrorMsg').classList.remove('hidden');
+            }
+        }
+
+        function toggleFontSize() { document.getElementById('mainBody').classList.toggle('wcag-large'); }
+        function toggleContrast() { document.getElementById('mainBody').classList.toggle('high-contrast'); }
+    </script>
+</body>
+</html>
